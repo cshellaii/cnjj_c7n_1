@@ -1,0 +1,14 @@
+policies:
+  - name: find-forwarding-rules
+    description: |
+      Identify load balancer forwarding rules that are using IPv4
+    resource: gcp.loadbalancer-forwarding-rule
+    filters:
+    - "ipVersion": "IPV4"
+
+  - name: find-public-buckets
+    description: |
+      Identify all cloud storage buckets that could be public (have no publicAccessPrevention enforced)
+    resource: gcp.bucket
+    filters:
+      - "iamConfiguration.publicAccessPrevention": "inherited"

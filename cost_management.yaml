@@ -1,0 +1,9 @@
+policies:
+  - name: pause-e2-type-machines
+    description: |
+      Pause all machines of a specific type (in this example, choosing to not allow machine types of e2-medium)
+    resource: gcp.instance
+    filters:
+      - "machineType": "https://www.googleapis.com/compute/v1/projects/cloud-custodian-job-jar/zones/us-east1-b/machineTypes/e2-medium"
+    actions:
+      - type: suspend

@@ -1,0 +1,35 @@
+policies:
+  - name: mark-untagged-compute
+    description: |
+      Identify all compute instances that are untagged and mark them to be stopped in 2 days
+    resource: gcp.instance
+    filters:
+      - type: value
+        key: tag
+        value:
+    actions:
+      - type: mark-for-op
+        op: stop
+        days: 2
+  
+  - name: stop-untagged-compute
+    description: |
+      Stop all compute instances that were marked for stoppage due to noncompliance and still are non-compliant
+    resource: gcp.instance
+    filters:
+      - type: value
+        key: tag
+        value:
+      - type: marked-for-op
+        op: stop
+    actions:
+      - type: stop
+  
+  - name: identify-untagged-buckets
+    description: |
+      Identify all cloud storage buckets that are untagged
+    resource: gcp.bucket
+    filters:
+      - type: value
+        key: tag
+        value:
